@@ -1,0 +1,7 @@
+{"coins":100000,"premium":5000,"consumablesType":[],
+"consumablesCount":[],"characters":["Trash Cat"],"usedCharacter":0,
+"usedAccessory":-1,"characterAccessories":[],"themes":["Day"],
+"usedTheme":0,"highScore":0,
+"missonsType":[3,3],"missonsProgress":[0.0,0.0],"missonsMax":[150.0,20.0],"missonsReward":[4,1],
+"previousName":"Trash Cat","licenceAccepted":false,"tutorialDone":true,
+"masterVolume":0.0,"musicVolume":-5.779648303985596,"masterSFXVolume":0.0,"ftueLevel":1,"rank":0}

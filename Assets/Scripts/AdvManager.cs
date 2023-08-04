@@ -6,9 +6,8 @@ using UnityEngine;
 public class AdvManager : MonoBehaviour
 {
     [SerializeField] GameState gameState;
-    bool isAdvAllowed = false;
     float advTimer;
-    float advBreak = 61f;
+    float advBreak = 60f;
 
     [DllImport("__Internal")]
     private static extern void ShowIntersitialAdvExtern();
@@ -22,22 +21,13 @@ public class AdvManager : MonoBehaviour
     private void Update()
     {
         advTimer -= Time.deltaTime;
-        if (!isAdvAllowed && advTimer <= 0)
-        {
-            isAdvAllowed = true;
-            Debug.Log("Можно Реклама");
-            return;
-            
-        }
+
     }
 
     public void ShowAdv()
     {
-        if (isAdvAllowed)
+        if (advTimer <= 0)
         {
-            isAdvAllowed = false;
-            advTimer = 10000;
-            Debug.Log("Реклама");
 #if !UNITY_EDITOR
             ShowIntersitialAdvExtern();
 #else 
