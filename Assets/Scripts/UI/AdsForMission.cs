@@ -1,0 +1,91 @@
+﻿using UnityEngine;
+using UnityEngine.UI;
+using System.Collections.Generic;
+
+
+public class AdsForMission : MonoBehaviour
+{
+    public MissionUI missionUI;
+
+    public Text newMissionText;
+    public Button adsButton;
+
+    public string adsPlacementId = "rewardedVideo";
+    public bool adsRewarded = true; 
+
+    void OnEnable ()
+    {
+        adsButton.gameObject.SetActive(false);
+        newMissionText.gameObject.SetActive(false);
+
+        // Only present an ad offer if less than 3 missions.
+        if (Progress.instance.playerInfo.missions.Count >= 3)
+        {
+            return;
+        }
+
+    }
+
+    public void ShowAds()
+    {
+#if UNITY_ADS
+        if (Advertisement.IsReady(adsPlacementId))
+        {
+#if UNITY_ANALYTICS
+            AnalyticsEvent.AdStart(adsRewarded, adsNetwork, adsPlacementId, new Dictionary<string, object>
+            {
+                { "level_index", PlayerData.instance.rank },
+                { "distance", TrackManager.instance == null ? 0 : TrackManager.instance.worldDistance },
+            });
+#endif
+            var options = new ShowOptions {resultCallback = HandleShowResult};
+            Advertisement.Show(adsPlacementId, options);
+        }
+        else
+        {
+#if UNITY_ANALYTICS
+            AnalyticsEvent.AdSkip(adsRewarded, adsNetwork, adsPlacementId, new Dictionary<string, object> {
+                { "error", Advertisement.GetPlacementState(adsPlacementId).ToString() }
+            });
+#endif
+        }
+#endif
+    }
+
+#if UNITY_ADS
+
+    private void HandleShowResult(ShowResult result)
+    {
+        switch (result)
+        {
+            case ShowResult.Finished:
+                AddNewMission();
+#if UNITY_ANALYTICS
+                AnalyticsEvent.AdComplete(adsRewarded, adsNetwork, adsPlacementId);
+#endif
+                break;
+            case ShowResult.Skipped:
+                Debug.Log("The ad was skipped before reaching the end.");
+#if UNITY_ANALYTICS
+                AnalyticsEvent.AdSkip(adsRewarded, adsNetwork, adsPlacementId);
+#endif
+                break;
+            case ShowResult.Failed:
+                Debug.LogError("The ad failed to be shown.");
+#if UNITY_ANALYTICS
+                AnalyticsEvent.AdSkip(adsRewarded, adsNetwork, adsPlacementId, new Dictionary<string, object> {
+                    { "error", "failed" }
+                });
+#endif
+                break;
+        }
+    }
+#endif
+
+    void AddNewMission()
+    {
+        Progress.instance.AddMission();
+        Progress.instance.Save();
+        StartCoroutine(missionUI.Open());
+    }
+}
