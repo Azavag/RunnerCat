@@ -497,7 +497,10 @@ public class GameState : AState
                 m_NextValidSegment = null;
                 trackManager.ChangeZone();
 
-                tutorialValidatedObstacles.text = "Passed!";
+                if (Language.Instance.currentLanguage == "ru")
+                    tutorialValidatedObstacles.text = "Пройдено!";
+                else tutorialValidatedObstacles.text = "Passed!";
+
 
                 if (trackManager.currentZone == 0)
                 {//we looped, mean we finished the tutorial.

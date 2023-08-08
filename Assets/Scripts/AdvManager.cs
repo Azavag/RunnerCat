@@ -30,12 +30,12 @@ public class AdvManager : MonoBehaviour
         {
 #if !UNITY_EDITOR
             ShowIntersitialAdvExtern();
-#else 
+#else
             StartTimer();
 #endif
         }
     }
-
+    //Âûחûגאועסÿ ג ShowIntersitialAdvExtern.OnClose()
     public void StartTimer()
     {
         advTimer = advBreak;
