@@ -149,12 +149,14 @@ public class TrackManager : MonoBehaviour
     {
         characterController.character.animator.Play(s_StartHash);
         float length = k_CountdownToStartLength;
+        
         m_TimeToStart = length;
 
         while (m_TimeToStart >= 0)
-        {
+        {          
             yield return null;
             m_TimeToStart -= Time.deltaTime * k_CountdownSpeed;
+            
         }
 
         m_TimeToStart = -1;

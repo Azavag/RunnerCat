@@ -422,12 +422,12 @@ public class GameState : AState
 
     public void GameOver()
     {
-        Debug.Log("GameOver");
+        manager.SwitchState("GameOver");
         manager.SwitchState("GameOver");
         
 
     }
-
+    //По кнопке
     public void PremiumForLife()
     {
         //This check avoid a bug where the video AND premium button are released on the same frame.
@@ -451,7 +451,7 @@ public class GameState : AState
     {
         trackManager.characterController.currentLife = 1;
         trackManager.isRerun = true;
-        StartGame();
+       // StartGame();
     }
     //Показ рекламы
     public void ShowRewardedAd()

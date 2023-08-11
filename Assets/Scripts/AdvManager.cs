@@ -43,8 +43,11 @@ public class AdvManager : MonoBehaviour
 
     public void ShowRewardAdv()
     {
+
 #if !UNITY_EDITOR
         ShowRewardedAdvExtern();
+#else
+        GiveSecondWind();
 #endif
     }
 

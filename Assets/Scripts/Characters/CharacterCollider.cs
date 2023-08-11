@@ -124,7 +124,7 @@ public class CharacterCollider : MonoBehaviour
 				Coin.coinPool.Free(c.gameObject);
                 Progress.instance.playerInfo.coins += 1;
 				controller.coins += 1;
-				//m_Audio.PlayOneShot(coinSound);
+				m_Audio.PlayOneShot(coinSound);
             }
         }
         else if(c.gameObject.layer == k_ObstacleLayerIndex)
