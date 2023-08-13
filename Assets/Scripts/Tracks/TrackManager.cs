@@ -248,6 +248,7 @@ public class TrackManager : MonoBehaviour
 
     public void End()
     {
+        
         foreach (TrackSegment seg in m_Segments)
         {
             Addressables.ReleaseInstance(seg.gameObject);

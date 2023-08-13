@@ -423,9 +423,7 @@ public class GameState : AState
     public void GameOver()
     {
         manager.SwitchState("GameOver");
-        manager.SwitchState("GameOver");
         
-
     }
     //По кнопке
     public void PremiumForLife()
